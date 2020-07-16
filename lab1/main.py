@@ -6,7 +6,7 @@ from net import FC_Net
 # train linear
 net_linear = FC_Net(5, 5)
 x_train, y_train = generate_linear()
-net_linear.train(x_train, y_train, epochs=100000, learning_rate=0.015)
+net_linear.train(x_train, y_train, epochs=50000, learning_rate=0.05)
 
 # test linear
 y_hat = net_linear.test(x_train)
@@ -19,7 +19,7 @@ print(f'Accuracy = {cal_accuracy(y_train, y_hat)}')
 # train XOR
 net_XOR = FC_Net(15, 15)
 x_train, y_train = generate_XOR_easy()
-net_XOR.train(x_train, y_train, epochs=100000, learning_rate=0.015)
+net_XOR.train(x_train, y_train, epochs=50000, learning_rate=0.05)
 
 # test XOR
 y_hat = net_XOR.test(x_train)

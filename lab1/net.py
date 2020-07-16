@@ -24,7 +24,7 @@ class FC_Net:
             acc = cal_accuracy(y, y_hat)
             history.append({'epoch': epoch, 'loss': loss, 'acc': acc})
 
-            if (epoch % int(epochs / 50)) == 0:
+            if (epoch % int(epochs / 20)) == 0:
                 print(f'epoch {epoch:<6} loss: {loss:.5f}  accuracy: {acc:.5f}')
 
             if acc == 1.0:
