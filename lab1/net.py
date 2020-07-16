@@ -41,23 +41,23 @@ class FC_Net:
         self.z = []
         self.a = [x]
 
-        for l in range(len(self.W)):
-            self.z.append(np.matmul(self.a[l], self.W[l]))
-            self.a.append(self.sigmoid(self.z[l]))
+        for i in range(len(self.W)):
+            self.z.append(np.matmul(self.a[i], self.W[i]))
+            self.a.append(self.sigmoid(self.z[i]))
 
         return self.a[-1]
 
     def backward(self, y, y_hat, learning_rate):
-        deltas = [None for l in range(len(self.W))]
+        deltas = [None for i in range(len(self.W))]
         deltas[-1] = self.derivative_sigmoid(self.z[-1]) * self.derivative_MSE(y, y_hat)
 
-        for l in range(len(self.W) - 1, -1, -1):
-            if (l - 1) >= 0:
-                deltas[l - 1] = np.matmul(deltas[l], self.W[l].T) * self.derivative_sigmoid(self.z[l - 1])
+        for i in range(len(self.W) - 1, -1, -1):
+            if (i - 1) >= 0:
+                deltas[i - 1] = np.matmul(deltas[i], self.W[i].T) * self.derivative_sigmoid(self.z[i - 1])
 
             # update weights
-            gradient_to_w = np.matmul(self.a[l].T, deltas[l])
-            self.W[l] -= learning_rate * gradient_to_w
+            gradient_to_w = np.matmul(self.a[i].T, deltas[i])
+            self.W[i] -= learning_rate * gradient_to_w
 
     def MSE(self, y, y_hat):
         return np.square(np.subtract(y, y_hat)).mean()
