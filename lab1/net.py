@@ -12,7 +12,7 @@ class FC_Net:
         self.W.append(np.random.randn(first_hidden_width, second_hidden_width))
         self.W.append(np.random.randn(second_hidden_width, output_width))
 
-    def train(self, x, y, epochs, learning_rate):
+    def train(self, x, y, epochs, learning_rate, early_stop=False):
         history = []
         print('Start training...')
         
@@ -27,7 +27,7 @@ class FC_Net:
             if (epoch % int(epochs / 20)) == 0:
                 print(f'epoch {epoch:<6} loss: {loss:.5f}  accuracy: {acc:.5f}')
 
-            if acc == 1.0:
+            if early_stop and acc == 1.0:
                 print(f'epoch {epoch:<6} loss: {loss:.5f}  accuracy: {acc:.5f}')
                 print('Accuracy = 1.0, early stop the training.')
                 break
