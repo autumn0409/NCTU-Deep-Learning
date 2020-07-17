@@ -13,20 +13,28 @@ class FC_Net:
         self.W.append(np.random.randn(second_hidden_width, output_width))
 
     def train(self, x, y, epochs, learning_rate, early_stop=False):
-        history = []
+        history = {'epochs':[], 'loss':[], 'accuracy':[]}
         print('Start training...')
         
         for epoch in range(1, epochs + 1):
+            # backpropagation
             y_hat = self.forward(x)
             self.backward(y, y_hat, learning_rate)
                 
+            # calculate loss and accuracy
             loss = self.MSE(y, y_hat)
             acc = cal_accuracy(y, y_hat)
-            history.append({'epoch': epoch, 'loss': loss, 'acc': acc})
 
+            # record the values
+            history['epochs'].append(epoch)
+            history['loss'].append(loss)
+            history['accuracy'].append(acc)
+
+            # print information
             if (epoch % int(epochs / 20)) == 0:
                 print(f'epoch {epoch:<6} loss: {loss:.5f}  accuracy: {acc:.5f}')
 
+            # early stopping
             if early_stop and acc == 1.0:
                 print(f'epoch {epoch:<6} loss: {loss:.5f}  accuracy: {acc:.5f}')
                 print('Accuracy = 1.0, early stop the training.')
