@@ -104,23 +104,6 @@ def plot_results(num_layers, pretrained, history):
     plt.title(f'Result Comparison (ResNet{num_layers})')
 
 
-def show_acc(model, loss_func, test_loader, device):
-    model.eval()
-    correct = 0
-
-    for batch_idx, (data, target) in enumerate(test_loader):
-        data, target = data.to(device), target.to(device)
-
-        with torch.no_grad():
-            output = model(data)
-
-        _, pred = torch.max(output, dim=1)
-        correct += pred.eq(target).sum().item()
-
-    acc = 100. * correct / len(test_loader.dataset)
-    print(f'Accuracy = {acc}')
-
-
 def save_history(num_layers, history):
     filename = None
 
