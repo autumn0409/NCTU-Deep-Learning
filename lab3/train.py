@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import DataLoader
+from torchvision import transforms
 
 from dataloader import RetinopathyLoader
 from resnet import resnet18, resnet50
@@ -16,8 +17,17 @@ device = 'cuda' if torch.cuda.is_available() else 'cpu'
 data_root_path = './data/'
 
 # load data
-train_dataset = RetinopathyLoader(data_root_path, 'train')
-test_dataset = RetinopathyLoader(data_root_path, 'test')
+train_transform = transforms.Compose([
+    transforms.RandomVerticalFlip(),
+    transforms.RandomHorizontalFlip(),
+    transforms.ToTensor(),
+])
+test_transform = transforms.Compose([
+    transforms.ToTensor(),
+])
+
+train_dataset = RetinopathyLoader(data_root_path, 'train', train_transform)
+test_dataset = RetinopathyLoader(data_root_path, 'test', test_transform)
 
 train_loader = DataLoader(
     dataset=train_dataset,

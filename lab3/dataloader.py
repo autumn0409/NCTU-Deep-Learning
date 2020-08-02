@@ -1,7 +1,6 @@
 import pandas as pd
 from torch.utils import data
 import numpy as np
-from torchvision import transforms
 
 from PIL import Image
 
@@ -18,24 +17,11 @@ def getData(mode):
 
 
 class RetinopathyLoader(data.Dataset):
-    def __init__(self, root, mode):
+    def __init__(self, root, mode, transform):
         self.root = root
         self.img_name, self.label = getData(mode)
         self.mode = mode
-
-        train_transform = transforms.Compose([
-            transforms.RandomVerticalFlip(),
-            transforms.RandomHorizontalFlip(),
-            transforms.ToTensor()
-        ])
-        test_transform = transforms.Compose([
-            transforms.ToTensor()
-        ])
-
-        if self.mode == 'train':
-            self.transform = train_transform
-        else:
-            self.transform = test_transform
+        self.transform = transform
 
         print(f"> Found {len(self.img_name)} {mode}ing images...")
 
