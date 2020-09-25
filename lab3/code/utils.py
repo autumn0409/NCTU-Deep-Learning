@@ -81,6 +81,7 @@ def train_nn(model_name, model, epochs, optimizer, loss_func, train_loader, test
         history['test_acc'].append(100. * correct / len(test_loader.dataset))
         if history['test_acc'][-1] > highest_acc:
             torch.save(model.state_dict(), f'{model_name}.pkl')
+            highest_acc = history['test_acc'][-1]
 
         pbar_test.close()
 
