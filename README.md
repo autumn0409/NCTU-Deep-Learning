@@ -1,7 +1,7 @@
 # NCTU-Deep-Learning
 Labs of Deep Learning and Practice (2019 summer) in NCTU.
 
-## Labs Content
+## Labs' Contents
 * Lab1: Back-Propagation
 * Lab2: EEGNet & DeepConvNet
 * Lab3: ResNet
